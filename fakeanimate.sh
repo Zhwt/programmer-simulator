@@ -21,8 +21,14 @@ function show_file_size() {
         unit="k"
     elif [[ $r -gt 50 ]];
     then
-        unit="k"
-    elif [[ $r -gt 10 ]];
+        s=$(( ( RANDOM % 9 ) ))
+        if [[ $s -gt 7 ]];
+        then
+            unit="k"
+        else
+            unit="M"
+        fi
+    elif [[ $r -gt 9 ]];
     then
         unit="M"
     else
