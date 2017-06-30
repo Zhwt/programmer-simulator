@@ -9,7 +9,7 @@ function show_package() {
     local r=$(( ( RANDOM % $line_count ) + 1 ))
     local para=$r'q;d'
     local p=$(sed $para packagelist)
-    printf $p'\n'
+    printf $p
 }
 
 function show_file_size() {
