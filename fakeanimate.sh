@@ -4,6 +4,34 @@
 #and a fake file size
 #flooding your terminal so far.
 
+function progress_bar() {
+    local space_before=${1}
+    local space_after=${2}
+    local words_before=${3}
+    local words_after=${4}
+
+    local progress=''
+    local print_width=$(( `tput cols` - $(( ${space_before} )) - $(( ${space_after} )) ))
+
+    for (( i=0; i<$print_width; ++i )); do
+        progress+='#'
+    done
+
+    for (( i=0; i<$print_width; ++i )); do
+        echo -ne "\r${words_before}" # something like "Initializing..."
+        
+        for (( j=0; j<$(( ${space_before} - ${#words_before} )); ++j)); do
+            echo -ne " "; # space before progress bar
+        done;
+        
+        echo -ne "${progress:0:$i}" # $i chars of $progress from 0 position
+        
+        sleep .01
+    done
+    
+    echo -ne "${words_after}" # e.g. "Done."
+}
+
 function show_package() {
     local line_count=$( wc -l < packagelist )
     local r=$(( ( RANDOM % $line_count ) + 1 ))
